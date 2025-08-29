@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Two-Tier App</title>
+</head>
+<body>
+  <h1>Frontend App</h1>
+  <button onclick="loadUsers()">Load Users</button>
+  <ul id="users"></ul>
+
+  <script>
+    async function loadUsers() {
+      const res = await fetch("http://backend:5000/users");
+      const data = await res.json();
+      const list = document.getElementById("users");
+      list.innerHTML = "";
+      data.forEach(u => {
+        let li = document.createElement("li");
+        li.textContent = u.name;
+        list.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
+
