@@ -75,13 +75,13 @@ jobs:
           add: 'values-flask.yaml values-nginx.yaml'
           new_branch: "update-images-${{ needs.update_images.outputs.version }}"
 
-      - name: Create Pull Request (manual merge)
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.REPO_PAT }}
-          commit-message: "Update deployment image to ${{ needs.update_images.outputs.version }}"
-          title: "Update deployment images to ${{ needs.update_images.outputs.version }}"
-          body: "This PR updates Docker image tags in Helm values files. Manual review required."
-          base: main
-          branch: "update-images-${{ needs.update_images.outputs.version }}"
-          draft: false
+    #   - name: Create Pull Request (manual merge)
+    #     uses: peter-evans/create-pull-request@v5
+    #     with:
+    #       token: ${{ secrets.REPO_PAT }}
+    #       commit-message: "Update deployment image to ${{ needs.update_images.outputs.version }}"
+    #       title: "Update deployment images to ${{ needs.update_images.outputs.version }}"
+    #       body: "This PR updates Docker image tags in Helm values files. Manual review required."
+    #       base: main
+    #       branch: "update-images-${{ needs.update_images.outputs.version }}"
+    #       draft: false
