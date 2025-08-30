@@ -33,13 +33,20 @@ jobs:
 
       - name: Build and Push Backend Image
         run: |
+          VERSION=${{ steps.get_version.outputs.version }}
           docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION -f ./2-tier/backend/Dockerfile ./2-tier/backend
           docker push ${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
 
       - name: Build and Push Frontend Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION -f ./2-tier/frontend/Dockerfile ./2-tier/frontend
-          docker push ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION
+            VERSION=${{ steps.get_version.outputs.version }}
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION -f ./2-tier/frontend/Dockerfile ./2-tier/frontend
+            docker push ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
+
 
   update_config:
     runs-on: ubuntu-latest
