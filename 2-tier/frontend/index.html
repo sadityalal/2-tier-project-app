@@ -10,7 +10,7 @@
 
   <script>
     async function loadUsers() {
-      const res = await fetch("http://backend:5000/users");
+      const res = await fetch("http://flask-svc.backend.svc.cluster.local:5000/users");
       const data = await res.json();
       const list = document.getElementById("users");
       list.innerHTML = "";
