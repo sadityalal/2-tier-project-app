@@ -23,7 +23,7 @@ jobs:
       - name: Get Version for image
         id: get_version
         run: |
-          VERSION=$(cat ./2-tier/Version)
+          VERSION=$(cat ./2-tier/Version.txt)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Fetched version: $VERSION"
 
