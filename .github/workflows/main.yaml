@@ -28,22 +28,23 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
+          registry: ghcr.io
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.REPO_PAT }}
 
       - name: Build and Push Backend Image
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION -f ./2-tier/backend/Dockerfile ./2-tier/backend
-          docker push ${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION
+          docker build -t ghcr.io/${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION -f ./2-tier/backend/Dockerfile ./2-tier/backend
+          docker push ghcr.io/${{ secrets.DOCKER_USERNAME }}/backend-flask:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
 
       - name: Build and Push Frontend Image
         run: |
             VERSION=${{ steps.get_version.outputs.version }}
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION -f ./2-tier/frontend/Dockerfile ./2-tier/frontend
-            docker push ${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION
+            docker build -t ghcr.io/${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION -f ./2-tier/frontend/Dockerfile ./2-tier/frontend
+            docker push ghcr.io/${{ secrets.DOCKER_USERNAME }}/frontend-nginx:$VERSION
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
 
